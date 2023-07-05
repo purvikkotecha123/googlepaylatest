@@ -18,6 +18,8 @@ const baseRequest = {
       const googlePayConfig = await paypal.Googlepay().config();
       allowedPaymentMethods = googlePayConfig.allowedPaymentMethods;
       merchantInfo = googlePayConfig.merchantInfo;
+        console.log('allowedPaymentMethods'+allowedPaymentMethods.json());
+        console.log('merchantInfo'+merchantInfo.json());
     }
     return {
       allowedPaymentMethods,
@@ -32,6 +34,7 @@ const baseRequest = {
     paymentDataRequest.transactionInfo = getGoogleTransactionInfo();
     paymentDataRequest.merchantInfo = merchantInfo;
     paymentDataRequest.callbackIntents = ["PAYMENT_AUTHORIZATION"];
+      console.log('paymentDataRequest'+paymentDataRequest.json());
     return paymentDataRequest;
   }
   function onPaymentAuthorized(paymentData) {
@@ -126,6 +129,7 @@ const baseRequest = {
           },
           body: JSON.stringify(order)
         })
+        console.log('create order response'+orderResonse.json());
         if(!orderResonse.ok) {
             throw new Error("error creating order")
         }
@@ -136,11 +140,13 @@ const baseRequest = {
         orderId: id,
         paymentMethodData: paymentData.paymentMethodData,
       });
+         console.log({ status })
       if (status === "APPROVED") {
         /* Capture the Order */
         const captureResponse = await fetch(`/orders/${id}/capture`, {
           method: "POST",
         }).then((res) => res.json());
+          console.log("capture order response"+res.json());
         return { transactionState: "SUCCESS" };
       } else {
         return { transactionState: "ERROR" };
