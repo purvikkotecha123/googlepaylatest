@@ -118,14 +118,20 @@ const baseRequest = {
           },
         ],
       };
-      /* Create Order */
-      const { id } = await fetch(`/orders`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(order),
-      }).then((res) => res.json());
+   /* Create Order on the Server Side */
+        const orderResonse = await fetch(`/orders`,{
+          method:'POST',
+          headers : {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(order)
+        })
+        if(!orderResonse.ok) {
+            throw new Error("error creating order")
+        }
+
+        const { id } = await orderResonse.json()
+        console.log({ id })
       const { status } = await paypal.Googlepay().confirmOrder({
         orderId: id,
         paymentMethodData: paymentData.paymentMethodData,
