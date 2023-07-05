@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Googlepay Example</title>
+    <script src="./index.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AQ5A5s5kavR8FYH9DHdbsj3sYXga8ydPgFRRDkd-zY-lsSWIlROPtQ4aGkSkIy9UH5bLd-KOuCUGVcLN&merchant-id=HPGAPD52A93QN&currency=USD&components=googlepay"></script>
+  </head>
+  <body>
+    <main>
+      <section>
+        <div id="button-container"></div>
+      </section>      
+    </main>
+    <script src="https://pay.google.com/gp/p/js/pay.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+        if (google && paypal.Googlepay) {
+          onGooglePayLoaded().catch(console.log);
+        }
+      });
+    </script>
+  </body>
+</html>
+  
