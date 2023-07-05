@@ -129,7 +129,7 @@ const baseRequest = {
           },
           body: JSON.stringify(order)
         })
-        console.log('create order response'+orderResonse.json());
+        
         if(!orderResonse.ok) {
             throw new Error("error creating order")
         }
@@ -146,7 +146,6 @@ const baseRequest = {
         const captureResponse = await fetch(`/orders/${id}/capture`, {
           method: "POST",
         }).then((res) => res.json());
-          console.log("capture order response"+res.json());
         return { transactionState: "SUCCESS" };
       } else {
         return { transactionState: "ERROR" };
