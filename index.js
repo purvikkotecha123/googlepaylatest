@@ -26,10 +26,10 @@ app.post("/orders", async (req, res) => {
       {
         amount: {
           currency_code: "USD",
-          value: "9.99",
+          value: "110",
         },
         payee: {
-          merchant_id: "2V9L63AM2BYKC"
+          merchant_id: "HPGAPD52A93QN"
         }
       },
     ],
