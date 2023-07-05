@@ -18,8 +18,8 @@ const baseRequest = {
       const googlePayConfig = await paypal.Googlepay().config();
       allowedPaymentMethods = googlePayConfig.allowedPaymentMethods;
       merchantInfo = googlePayConfig.merchantInfo;
-        console.log('allowedPaymentMethods'+allowedPaymentMethods.json());
-        console.log('merchantInfo'+merchantInfo.json());
+    console.log('merchantInfo'+JSON.stringify(merchantInfo));
+    console.log('allowedPaymentMethods'+JSON.stringify(allowedPaymentMethods));
     }
     return {
       allowedPaymentMethods,
@@ -34,7 +34,7 @@ const baseRequest = {
     paymentDataRequest.transactionInfo = getGoogleTransactionInfo();
     paymentDataRequest.merchantInfo = merchantInfo;
     paymentDataRequest.callbackIntents = ["PAYMENT_AUTHORIZATION"];
-      console.log('paymentDataRequest'+paymentDataRequest.json());
+      console.log('paymentDataRequest'+JSON.stringify(paymentDataRequest));
     return paymentDataRequest;
   }
   function onPaymentAuthorized(paymentData) {
