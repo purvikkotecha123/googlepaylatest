@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname +  '/index.html');
 });
 
-app.post("/order", (req, res) => {
+app.post("/orders", (req, res) => {
   console.log('inside order creation server side');
   const item_obj = {
     "intent" : "CAPTURE",
