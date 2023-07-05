@@ -57,5 +57,34 @@ app.post("/orders", async (req, res) => {
     });
   }
 });
+
+app.post("/orders/:orderId/capture", async (req, res) => {
+
+	const {
+		orderId
+	} = req.params;
+
+
+	const {
+		data,
+		headers
+	} = await axios({
+		url: `https://api.sandbox.paypal.com/v2/checkout/orders/${orderId}/capture`,
+		method: "post",
+		headers: {
+			"Content-Type": "application/json",
+			Accept: "application/json",
+			Prefer: 'return=representation',
+			Authorization: `Bearer A21AAJ6NX12qVR703S235Ms46x-eOBYgJ4Qf74wKPxHJx_uk_vqnS4XqfFyf9-7UQ5XSEY86kPJexx6H9__GmCvz2LDNk-L2g`,
+		},
+	});
+
+	const debugID = headers["paypal-debug-id"];
+
+	res.json({
+		debugID,
+		...data
+	});
+});
     
   app.listen(PORT, () => console.log(`Server Started on ${PORT}`));
