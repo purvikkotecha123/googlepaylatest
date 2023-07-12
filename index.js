@@ -43,7 +43,7 @@ app.post("/orders", async (req, res) => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: `Bearer A21AAJ6NX12qVR703S235Ms46x-eOBYgJ4Qf74wKPxHJx_uk_vqnS4XqfFyf9-7UQ5XSEY86kPJexx6H9__GmCvz2LDNk-L2g`,
+        Authorization: `Bearer A21AALg2WuEie_4XgSYrVkEA5LPP1IJaMt0idChNFR0MOkCrqaHu88d8PurSkKvmjhgXV-RoYsFvmWAhlTzZ7Lbrx6seZqcgA`,
       },
       data: {...order}
     });
@@ -75,7 +75,7 @@ app.post("/orders/:orderId/capture", async (req, res) => {
 			"Content-Type": "application/json",
 			Accept: "application/json",
 			Prefer: 'return=representation',
-			Authorization: `Bearer A21AAJ6NX12qVR703S235Ms46x-eOBYgJ4Qf74wKPxHJx_uk_vqnS4XqfFyf9-7UQ5XSEY86kPJexx6H9__GmCvz2LDNk-L2g`,
+			Authorization: `Bearer A21AALg2WuEie_4XgSYrVkEA5LPP1IJaMt0idChNFR0MOkCrqaHu88d8PurSkKvmjhgXV-RoYsFvmWAhlTzZ7Lbrx6seZqcgA`,
 		},
 	});
 
