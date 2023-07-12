@@ -25,7 +25,7 @@ app.post("/orders", async (req, res) => {
     purchase_units: [
       {
         amount: {
-          currency_code: "USD",
+          currency_code: "GBP",
           value: "110",
         },
         payee: {
