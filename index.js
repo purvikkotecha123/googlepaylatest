@@ -151,6 +151,7 @@ app.post("/orders", async (req, res) => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+	"PayPal-Request-Id" : "abdcdhehw",
         Authorization: `Bearer A21AALg2WuEie_4XgSYrVkEA5LPP1IJaMt0idChNFR0MOkCrqaHu88d8PurSkKvmjhgXV-RoYsFvmWAhlTzZ7Lbrx6seZqcgA`,
       },
       data: {...order}
