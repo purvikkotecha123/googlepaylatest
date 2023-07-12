@@ -125,7 +125,8 @@ const baseRequest = {
         const orderResonse = await fetch(`/orders`,{
           method:'POST',
           headers : {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'paypal-request-id' : 'abcdefgh'
           },
           body: JSON.stringify(order)
         })
