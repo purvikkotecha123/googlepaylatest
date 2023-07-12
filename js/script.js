@@ -86,7 +86,7 @@ const baseRequest = {
         {
           label: "Subtotal",
           type: "SUBTOTAL",
-          price: "100.00",
+          price: "45.00",
         },
         {
           label: "Tax",
@@ -94,10 +94,10 @@ const baseRequest = {
           price: "10.00",
         },
       ],
-      countryCode: "GB",
-      currencyCode: "GBP",
+      countryCode: "US",
+      currencyCode: "USD",
       totalPriceStatus: "FINAL",
-      totalPrice: "110.00",
+      totalPrice: "55.00",
       totalPriceLabel: "Total",
     };
   }
