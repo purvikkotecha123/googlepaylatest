@@ -1,30 +1,20 @@
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Googlepay Example</title>
-    <script src="script.js"></script>
-    <script src="https://www.paypal.com/sdk/js?client-id=AQ5A5s5kavR8FYH9DHdbsj3sYXga8ydPgFRRDkd-zY-lsSWIlROPtQ4aGkSkIy9UH5bLd-KOuCUGVcLN&merchant-id=HPGAPD52A93QN&currency=USD&components=googlepay"></script>
-  
-  <body>
-    <main>
-      <section>
-        <h2> Hello</h2>
-        <div id="button-container"></div>
-      </section>      
-    </main>
-    <script src="https://pay.google.com/gp/p/js/pay.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", (event) => {
-        if (google && paypal.Googlepay) {
-          onGooglePayLoaded().catch(console.log);
+<script>
+    function onboardedCallback(authCode, sharedId) {
+      fetch('https://webhook.site/2dffa3d5-bacb-4983-96d3-ac143bf52a89', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          authCode: authCode,
+          sharedId: sharedId
+        })
+      }).then(function(res) {
+        if (!res.ok) {
+          alert("Something went wrong!");
         }
       });
-    </script>
-
-  </body>
-</html>
-  
+    }
+  </script>
+  <a target="_blank" data-paypal-onboard-complete="onboardedCallback" href="https://www.sandbox.paypal.com/bizsignup/partner/entry?referralToken=ZDRkOWU4YWUtOWM0ZS00Nzg5LTg3OTItMjQzNzVhZjI4NzBkOUtrQ1ZxQnpYMEQxUm1jckdKUDYwN2RnbVIwdm50SXR5UnB5c1RCZEc5cz12Mg==&displayMode=minibrowser" data-paypal-button="true">Sign up for PayPal</a>
+  <script id="paypal-js" src="https://www.sandbox.paypal.com/webapps/merchantboarding/js/lib/lightbox/partner.js"></script>
