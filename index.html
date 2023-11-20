@@ -17,13 +17,13 @@
       <script src="https://www.paypal.com/sdk/js?client-id=AaRmyK5PZDbj-RGF8OeYM3GcEYdtWjxcIKYcE14oTTjOkBXTo69jxxfUvgNP3o0-6N97bDfDo31QLaF7&components=buttons&enable-funding=venmo">
       </script>
       <script>
-        var access_token = 'A21AAJHRCRUpMDvHxIcoUkrV6SDtujzwtwDBonQmtB09HA1mV6vLxPJhFQwoUlolxxf7XoDKPpMuqgp-nDBBnz8H1eQ-YK87Q'
+        var access_token = 'A21AAOnCDUNkVG4_JA9oSZBfir_M9eXUN4JVEK36p27n8y_LhZEoYQi1JbqDLzTMzcc7ZcyBVbu8oKTR8qxaPA5tnP2w8HoEg'
         // Render the PayPal button into #paypal-button-container
         paypal.Buttons({
 
             // Call your server to set up the transaction
             createOrder: function(data, actions) {
-                return fetch('https://api.sandbox.paypal.com/v2/checkout/orders', {
+                return fetch('https://api.paypal.com/v2/checkout/orders', {
                     method: 'post',
                     headers: {
                                 "Content-Type": "application/json",
@@ -36,11 +36,11 @@
         {
             "amount": {
                 "currency_code": "USD",
-                "value": "5.50",
+                "value": "1.00",
                 "breakdown": {
                     "item_total": {
                         "currency_code": "USD",
-                        "value": "5.00"
+                        "value": "1.00"
                     },
                     "shipping": {
                         "currency_code": "USD",
@@ -48,7 +48,7 @@
                     },
                     "tax_total": {
                         "currency_code": "USD",
-                        "value": "0.50"
+                        "value": "0.00"
                     },
                     "discount": {
                         "currency_code": "USD",
@@ -61,60 +61,13 @@
                     "name": "tshirt",
                     "unit_amount": {
                         "currency_code": "USD",
-                        "value": "5.00"
+                        "value": "1.00"
                     },
                     "quantity": "1",
                     "sku": "lewis",
                     "category": "PHYSICAL_GOODS"
                 }
-            ],
-            "payee": {
-        "merchant_id": "AAAHBE3SRH6PE"
-      },
-            "shipping": {
-                "options": [
-                    {
-                        "id": "1",
-                        "label": "Same Day Shipping",
-                        "type": "SHIPPING",
-                        "amount": {
-                            "currency_code": "USD",
-                            "value": "8.00"
-                        },
-                        "selected": false
-                    },
-                    {
-                        "id": "2",
-                        "label": "2 Day Shipping",
-                        "type": "SHIPPING",
-                        "amount": {
-                            "currency_code": "USD",
-                            "value": "6.00"
-                        },
-                        "selected": false
-                    },
-                    {
-                        "id": "20",
-                        "label": "3 Day Shipping",
-                        "type": "SHIPPING",
-                        "amount": {
-                            "currency_code": "USD",
-                            "value": "4.00"
-                        },
-                        "selected": false
-                    },
-                    {
-                        "id": "21",
-                        "label": "Free Shipping",
-                        "type": "SHIPPING",
-                        "amount": {
-                            "currency_code": "USD",
-                            "value": "0.00"
-                        },
-                        "selected": true
-                    }
-                ]
-            }
+            ]
         }
     ]
 }),     
@@ -124,10 +77,10 @@
                     return orderData.id;
                 });
             },
-          
+           
             // Call your server to finalize the transaction
             onApprove: function(data, actions)  {
-                return fetch('https://api.sandbox.paypal.com/v2/checkout/orders/' + data.orderID + '/capture/', {
+                return fetch('https://api.paypal.com/v2/checkout/orders/' + data.orderID + '/capture/', {
                     method: 'post',
                     headers: {
                                 "Content-Type": "application/json",
