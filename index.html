@@ -1,20 +1,270 @@
-<script>
-    function onboardedCallback(authCode, sharedId) {
-      fetch('https://eolubvg39i6xdqh.m.pipedream.net', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify({
-          authCode: authCode,
-          sharedId: sharedId
-        })
-      }).then(function(res) {
-        if (!res.ok) {
-          alert("Something went wrong!");
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Checkout Page</title>
+    </head>
+    <body>
+        <div id="paypal-button-container"></div>
+        <div id="checkout-form">
+         <div id="card-name-field-container"></div>
+         <div id="card-number-field-container"></div>
+         <div id="card-expiry-field-container"></div>
+         <div id="card-cvv-field-container"></div>
+         <button id="multi-card-field-button" type="button">Pay now with Card Fields</button>
+        </div>
+    </body>
+      <script src="https://www.paypal.com/sdk/js?client-id=AaRmyK5PZDbj-RGF8OeYM3GcEYdtWjxcIKYcE14oTTjOkBXTo69jxxfUvgNP3o0-6N97bDfDo31QLaF7&components=buttons&enable-funding=venmo">
+      </script>
+      <script>
+        var access_token = 'A21AAJHRCRUpMDvHxIcoUkrV6SDtujzwtwDBonQmtB09HA1mV6vLxPJhFQwoUlolxxf7XoDKPpMuqgp-nDBBnz8H1eQ-YK87Q'
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+
+            // Call your server to set up the transaction
+            createOrder: function(data, actions) {
+                return fetch('https://api.sandbox.paypal.com/v2/checkout/orders', {
+                    method: 'post',
+                    headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": "Bearer "+access_token,
+                             //   "PayPal-Auth-Assertion":"eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJpc3MiOiJBUW04RmJKZ1NwZmh4bFJscF9jVks2ZEdmQ1JKRno3M0tzYVhVbEp2SEdqTVAyTjJtc2ZqYTlrUUlyM1BsMmZuQV9EY1oyXzE4Mnp5Z19PVCIsInBheWVyX2lkIjoiQkFEUDk1U0MyR0RFNiJ9.",
+                            },
+                            body: JSON.stringify({
+    "intent": "CAPTURE",
+    "purchase_units": [
+        {
+            "amount": {
+                "currency_code": "USD",
+                "value": "5.50",
+                "breakdown": {
+                    "item_total": {
+                        "currency_code": "USD",
+                        "value": "5.00"
+                    },
+                    "shipping": {
+                        "currency_code": "USD",
+                        "value": "0.00"
+                    },
+                    "tax_total": {
+                        "currency_code": "USD",
+                        "value": "0.50"
+                    },
+                    "discount": {
+                        "currency_code": "USD",
+                        "value": "0.00"
+                    }
+                }
+            },
+            "items": [
+                {
+                    "name": "tshirt",
+                    "unit_amount": {
+                        "currency_code": "USD",
+                        "value": "5.00"
+                    },
+                    "quantity": "1",
+                    "sku": "lewis",
+                    "category": "PHYSICAL_GOODS"
+                }
+            ],
+            "payee": {
+        "merchant_id": "AAAHBE3SRH6PE"
+      },
+            "shipping": {
+                "options": [
+                    {
+                        "id": "1",
+                        "label": "Same Day Shipping",
+                        "type": "SHIPPING",
+                        "amount": {
+                            "currency_code": "USD",
+                            "value": "8.00"
+                        },
+                        "selected": false
+                    },
+                    {
+                        "id": "2",
+                        "label": "2 Day Shipping",
+                        "type": "SHIPPING",
+                        "amount": {
+                            "currency_code": "USD",
+                            "value": "6.00"
+                        },
+                        "selected": false
+                    },
+                    {
+                        "id": "20",
+                        "label": "3 Day Shipping",
+                        "type": "SHIPPING",
+                        "amount": {
+                            "currency_code": "USD",
+                            "value": "4.00"
+                        },
+                        "selected": false
+                    },
+                    {
+                        "id": "21",
+                        "label": "Free Shipping",
+                        "type": "SHIPPING",
+                        "amount": {
+                            "currency_code": "USD",
+                            "value": "0.00"
+                        },
+                        "selected": true
+                    }
+                ]
+            }
         }
-      });
-    }
-  </script>
-  <a target="_blank" data-paypal-onboard-complete="onboardedCallback" href="https://www.sandbox.paypal.com/bizsignup/partner/entry?referralToken=ZDRkOWU4YWUtOWM0ZS00Nzg5LTg3OTItMjQzNzVhZjI4NzBkOUtrQ1ZxQnpYMEQxUm1jckdKUDYwN2RnbVIwdm50SXR5UnB5c1RCZEc5cz12Mg==&displayMode=minibrowser" data-paypal-button="true">Sign up for PayPal</a>
-  <script id="paypal-js" src="https://www.sandbox.paypal.com/webapps/merchantboarding/js/lib/lightbox/partner.js"></script>
+    ]
+}),     
+                }).then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+                    return orderData.id;
+                });
+            },
+            onShippingChange(data) {
+            console.log("SELECTED_OPTION", data.selected_shipping_option); 
+        },
+            // Call your server to finalize the transaction
+            onApprove: function(data, actions)  {
+                return fetch('https://api.sandbox.paypal.com/v2/checkout/orders/' + data.orderID + '/capture/', {
+                    method: 'post',
+                    headers: {
+                                "Content-Type": "application/json",
+                                "Prefer" : "return=representation",
+                                "Authorization": "Bearer "+access_token,
+                             //   "PayPal-Auth-Assertion":"eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJpc3MiOiJBUW04RmJKZ1NwZmh4bFJscF9jVks2ZEdmQ1JKRno3M0tzYVhVbEp2SEdqTVAyTjJtc2ZqYTlrUUlyM1BsMmZuQV9EY1oyXzE4Mnp5Z19PVCIsInBheWVyX2lkIjoiQkFEUDk1U0MyR0RFNiJ9.",
+                            }
+                }).then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+                    // Three cases to handle:
+                    //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+                    //   (2) Other non-recoverable errors -> Show a failure message
+                    //   (3) Successful transaction -> Show confirmation or thank you
+
+                    // This example reads a v2/checkout/orders capture response, propagated from the server
+                    // You could use a different API or structure for your 'orderData'
+                    var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+
+                    if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+                        return actions.restart(); // Recoverable state, per:
+                        // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
+                    }
+
+                    if (errorDetail) {
+                        var msg = 'Sorry, your transaction could not be processed.';
+                        if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+                        if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+                        return alert(msg); // Show a failure message (try to avoid alerts in production environments)
+                    }
+
+                    // Successful capture! For demo purposes:
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                    var transaction = orderData.purchase_units[0].payments.captures[0];
+                    alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+                    // Replace the above to show a success message within this page, e.g.
+                    // const element = document.getElementById('paypal-button-container');
+                    // element.innerHTML = '';
+                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                    // Or go to another URL:  actions.redirect('thank_you.html');
+                });
+            }
+
+        }).render('#paypal-button-container');
+   
+       // Custom styles object (optional)
+        const styleObject = {
+            input: {
+                "font-size:": "2rem",
+                "font-family": "monospace",
+                "font-weight": "lighter",
+                "padding" : "0.5rem",
+                color: "blue",
+            },
+            ".invalid": {
+            color: "purple",
+            },
+            ":hover": {
+                color: "orange",
+            },
+            ".purple": {
+                color: "purple",
+            },
+        };
+        // Create the card fields component and define callbacks
+        const cardField = paypal.CardFields({
+            style: styleObject,
+            createOrder: function (data, actions) {
+                return fetch("/api/paypal/order/create/", {
+                method: "post",
+                })
+                .then((res) => {
+                    return res.json();
+                })
+                .then((orderData) => {
+                    return orderData.id;
+                });
+            },
+            onApprove: function (data, actions) {
+                const { orderID } = data;
+                return fetch('/api/paypal/orders/${orderID}/capture/', {
+                method: "post",
+                })
+                .then((res) => {
+                    return res.json();
+                })
+                .then((orderData) => {
+                    // Redirect to success page
+                });
+            },
+            inputEvents: {
+                onChange: function (data) {
+                    // Handle a change event in any of the fields
+                },
+                onFocus: function(data) {
+                    // Handle a focus event in any of the fields
+                },
+                onBlur: function(data) {
+                    // Handle a blur event in any of the fields
+                },
+                onInputSubmitRequest: function(data) {
+                    // Handle an attempt to submit the entire card form
+                    // while focusing any of the fields
+                }
+            },
+        });
+        // Define the container for each field and the submit button
+        const cardNameContainer = document.getElementById("card-name-field-container"); // Optional field
+        const cardNumberContainer = document.getElementById("card-number-field-container");
+        const cardCvvContainer = document.getElementById("card-cvv-field-container");
+        const cardExpiryContainer = document.getElementById("card-expiry-field-container");
+        const multiCardFieldButton = document.getElementById("multi-card-field-button");
+        // Render each field after checking for eligibility
+        if (cardField.isEligible()) {
+            const nameField = cardField.NameField();
+            nameField.render(cardNameContainer);
+            const numberField = cardField.NumberField();
+            numberField.render(cardNumberContainer);
+            const cvvField = cardField.CVVField();
+            cvvField.render(cardCvvContainer);
+            const expiryField = cardField.ExpiryField();
+            expiryField.render(cardExpiryContainer);
+            // Add click listener to the submit button and call the submit function on the CardField component
+            multiCardFieldButton.addEventListener("click", () => {
+                cardField
+                .submit()
+                .then(() => {
+                    // Handle a successful payment
+                })
+                .catch((err) => {
+                    // Handle an unsuccessful payment
+                });
+            });
+        }
+      </script>
+</html>
+    
