@@ -124,9 +124,7 @@
                     return orderData.id;
                 });
             },
-            onShippingChange(data) {
-            console.log("SELECTED_OPTION", data.selected_shipping_option); 
-        },
+          
             // Call your server to finalize the transaction
             onApprove: function(data, actions)  {
                 return fetch('https://api.sandbox.paypal.com/v2/checkout/orders/' + data.orderID + '/capture/', {
