@@ -17,7 +17,7 @@
       <script src="https://www.paypal.com/sdk/js?client-id=AaRmyK5PZDbj-RGF8OeYM3GcEYdtWjxcIKYcE14oTTjOkBXTo69jxxfUvgNP3o0-6N97bDfDo31QLaF7&components=buttons&enable-funding=venmo">
       </script>
       <script>
-        var access_token = 'A21AAM1VJsinJEbDqdnJqSInzGCErrV5m25EVXqUQcdv2o8lGkl2vd5AmMITOq8b17wTYGQ0n1d5YRzk51nSfFiHBNt3b-BoQ'
+       var access_token = 'QWFSbXlLNVBaRGJqLVJHRjhPZVlNM0djRVlkdFdqeGNJS1ljRTE0b1RUak9rQlhUbzY5anh4ZlV2Z05QM28wLTZOOTdiRGZEbzMxUUxhRjc6RUNFTDd6UDcwcktGYkxWVWxBR2x1T0NGb21lRlRVYXRQMTgwbktBNDc5eXdSM016bHpIMDV5VDhuWXZrZVBoR0pwdGxhMEt2bF85Qi1MbEY='
         // Render the PayPal button into #paypal-button-container
         paypal.Buttons({
 
@@ -27,7 +27,7 @@
                     method: 'post',
                     headers: {
                                 "Content-Type": "application/json",
-                                "Authorization": "Bearer "+access_token,
+                                "Authorization": "Basic "+access_token,
                              //   "PayPal-Auth-Assertion":"eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJpc3MiOiJBUW04RmJKZ1NwZmh4bFJscF9jVks2ZEdmQ1JKRno3M0tzYVhVbEp2SEdqTVAyTjJtc2ZqYTlrUUlyM1BsMmZuQV9EY1oyXzE4Mnp5Z19PVCIsInBheWVyX2lkIjoiQkFEUDk1U0MyR0RFNiJ9.",
                             },
                             body: JSON.stringify({
@@ -101,7 +101,7 @@
                     headers: {
                                 "Content-Type": "application/json",
                                 "Prefer" : "return=representation",
-                                "Authorization": "Bearer "+access_token,
+                                "Authorization": "Basic "+access_token,
                              //   "PayPal-Auth-Assertion":"eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJpc3MiOiJBUW04RmJKZ1NwZmh4bFJscF9jVks2ZEdmQ1JKRno3M0tzYVhVbEp2SEdqTVAyTjJtc2ZqYTlrUUlyM1BsMmZuQV9EY1oyXzE4Mnp5Z19PVCIsInBheWVyX2lkIjoiQkFEUDk1U0MyR0RFNiJ9.",
                             }
                 }).then(function(res) {
