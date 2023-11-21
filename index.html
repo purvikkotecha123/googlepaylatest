@@ -32,42 +32,58 @@
                             },
                             body: JSON.stringify({
     "intent": "CAPTURE",
+    "payment_source": {
+        "venmo": {
+            "experience_context": {
+                "shipping_preference": "SET_PROVIDED_ADDRESS"
+            }
+        }
+    },
     "purchase_units": [
         {
             "amount": {
-                "currency_code": "USD",
-                "value": "1.00",
                 "breakdown": {
+                    "discount": {
+                        "currency_code": "USD",
+                        "value": "0.00"
+                    },
                     "item_total": {
                         "currency_code": "USD",
-                        "value": "1.00"
+                        "value": "10.99"
                     },
                     "shipping": {
                         "currency_code": "USD",
-                        "value": "0.00"
+                        "value": "9.20"
                     },
                     "tax_total": {
                         "currency_code": "USD",
                         "value": "0.00"
-                    },
-                    "discount": {
-                        "currency_code": "USD",
-                        "value": "0.00"
                     }
-                }
+                },
+                "currency_code": "USD",
+                "value": "20.19"
             },
             "items": [
                 {
-                    "name": "tshirt",
+                    "category": "PHYSICAL_GOODS",
+                    "name": "False",
+                    "quantity": "1",
+                    "sku": "CollinTest86",
                     "unit_amount": {
                         "currency_code": "USD",
-                        "value": "1.00"
-                    },
-                    "quantity": "1",
-                    "sku": "lewis",
-                    "category": "PHYSICAL_GOODS"
+                        "value": "10.99"
+                    }
                 }
-            ]
+            ],
+            "shipping": {
+                "address": {
+                    "address_line_1": "*****",
+                    "admin_area_1": "CA",
+                    "admin_area_2": "San Jose",
+                    "country_code": "US",
+                    "postal_code": "87361"
+                }
+            }
         }
     ]
 }),     
